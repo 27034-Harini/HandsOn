@@ -9,6 +9,17 @@ namespace CoffeeShop.Model
 {
     internal class OrderInfo
     {
+        public OrderInfo(CoffeeInfo coffeeInfo, Guid userId, Guid orderId, int quantity, decimal totalAmount, OrderStatus orderStatus, DateTime orderTime)
+        {
+            CoffeeInfo = coffeeInfo;
+            UserId = userId;
+            OrderId = orderId;
+            Quantity = quantity;
+            TotalAmount = totalAmount;
+            OrderStatus = orderStatus;
+            OrderTime = orderTime;
+        }
+
         public CoffeeInfo CoffeeInfo {  get; set; }
         public Guid UserId { get; init; }
         public Guid OrderId { get; init; }

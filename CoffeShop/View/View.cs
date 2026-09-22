@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +58,19 @@ namespace CoffeeShop.Views
             }
         }
 
+        internal void DisplayOrders(ConcurrentQueue<OrderInfo> myOrders)
+        {
+            int orderNo = 1;
+            foreach (OrderInfo orderInfo in myOrders)
+            {
+                Console.WriteLine(orderNo++);
+                Console.WriteLine($"Coffee Name: {orderInfo.CoffeeInfo.CoffeeName}\n" +
+                    $"Quantity : {orderInfo.Quantity}\n" +
+                    $"Total price : {orderInfo.TotalAmount}\n" +
+                    $"Status : {orderInfo.OrderStatus}");
+            }
+        }
+
         internal void DisplaySuccessMessage(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -67,7 +80,8 @@ namespace CoffeeShop.Views
 
         internal string GetCoffeeDetail(string getCoffeeType)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(getCoffeeType);
+            return Console.ReadLine() ?? String.Empty.Trim();
         }
 
         internal string GetUserDetail(string getDetail)

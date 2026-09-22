@@ -12,6 +12,6 @@ namespace CoffeeShop.Enums
         Preparing,
         Ready,
         Delivered,
-        Canceled,
+        Cancelled,
     }
 }

@@ -27,6 +27,10 @@ namespace CoffeeShop.Constants
         public const string Separator = "-----------------------------------------------------------";
         public const string GetCoffeeType = "Enter the coffee type: ";
         public const string GetCoffeeQuantity = "Enter the coffee quantity:";
+        public const string GetSpecificOrder = "Choose the your order to be cancelled : ";
+        public const string NoSuchOrderExist = "No such order exist.";
+        public const string NoOrderExist = "No order exist";
+        public const string CancellationFailed = "This order can't be cancelled";
 
     }
 }

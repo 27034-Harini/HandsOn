@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,8 +42,10 @@ namespace CoffeeShop.Controller
                         this.PlaceOrder();
                         break;
                     case "3":
+                        this.ViewMyOrders();
                         break;
                     case "4":
+                        this.CancelOrder();
                         break;
                     case "5":
                         shallBreak = true;
@@ -54,6 +56,60 @@ namespace CoffeeShop.Controller
                 }
             }
 
+        }
+
+        private void CancelOrder()
+        {
+            ConcurrentQueue<OrderInfo> myOrders = this._orderService.GetMyOrders();
+            this._view.DisplayOrders(myOrders);
+            if (myOrders.Count == 0)
+            {
+                this._view.DisplayErrorMessage(ConsoleMessages.NoOrderExist);
+                return;
+            }
+            OrderInfo? chosenOrder = this.GetSpecificOrder(myOrders);
+            if (chosenOrder == null)
+            {
+                this._view.DisplayErrorMessage(ConsoleMessages.NoSuchOrderExist);
+                return;
+            }
+            if (chosenOrder.OrderStatus != OrderStatus.Ordered)
+            {
+                this._view.DisplayErrorMessage(ConsoleMessages.CancellationFailed);
+                return;
+            }
+            chosenOrder.OrderStatus = OrderStatus.Cancelled;
+        }
+
+        private OrderInfo? GetSpecificOrder(ConcurrentQueue<OrderInfo> myOrders)
+        {
+            int attempt = this._maxNoOfTries;
+            int choice = 0;
+            while (attempt > 0)
+            {
+                string input = this._view.GetCoffeeDetail(ConsoleMessages.GetSpecificOrder);
+                if (!int.TryParse(input, out choice) || choice < 0 || choice > myOrders.Count)
+                {
+                    this._view.DisplayErrorMessage(ConsoleMessages.NoSuchOrderExist);
+                    this._view.DisplayAttemptsLeft(--attempt);
+                    continue;
+                }
+                break;
+            }
+            if (attempt <= 0)
+            {
+                this._view.DisplayErrorMessage(ConsoleMessages.MaxAttemptsReached);
+                return null;
+            }
+
+            return myOrders.ElementAt(choice - 1);
+        }
+
+        private int ViewMyOrders()
+        {
+            ConcurrentQueue<OrderInfo> myOrders = this._orderService.GetMyOrders();
+            this._view.DisplayOrders(myOrders);
+            return myOrders.Count;
         }
 
         private void PlaceOrder()
