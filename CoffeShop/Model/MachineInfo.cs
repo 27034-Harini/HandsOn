@@ -9,7 +9,7 @@ namespace CoffeeShop.Model
 {
     internal class MachineInfo
     {
-        public Guid OrderId { get; init; }
+        public Guid OrderId { get; set; }
         public Guid MachineId { get; init; }
         public MachineStatus MachineStatus { get; set; }
 

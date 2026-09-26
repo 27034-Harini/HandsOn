@@ -9,11 +9,11 @@ namespace CoffeeShop.Model
 {
     internal class CoffeeInfo
     {
-        public CoffeeInfo(CoffeeTypes coffeeName, int price, TimeSpan timeSpan)
+        public CoffeeInfo(CoffeeTypes coffeeName, int price, TimeSpan timeTaken)
         {
             this.CoffeeName = coffeeName;
             this.Price = price;
-            this.TimeTaken = timeSpan;
+            this.TimeTaken = timeTaken;
         }
 
         public CoffeeTypes CoffeeName {  get; set; }

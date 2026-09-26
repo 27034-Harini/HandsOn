@@ -2,10 +2,10 @@
 {
     internal class UserInfo
     {
-        public UserInfo(Guid id, string username, string email, string phoneNumber, string password)
+        public UserInfo(Guid userId, string userName, string email, string phoneNumber, string password)
         {
-            this.UserId = id;
-            this.UserName = username;
+            this.UserId = userId;
+            this.UserName = userName;
             this.Email = email;
             this.PhoneNumber = phoneNumber;
             this.Password = password;

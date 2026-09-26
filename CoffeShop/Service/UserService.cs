@@ -7,8 +7,8 @@ namespace CoffeeShop.Service
 {
     internal class UserService
     {
-        private UserRepository _userRepository = new UserRepository();
-        private Validator _validator = new Validator();
+        private UserRepository _userRepository;
+        private Validator _validator;
         public UserService(Validator validator, UserRepository userRepository)
         {
             _validator = validator;
